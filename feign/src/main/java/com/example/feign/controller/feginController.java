@@ -30,7 +30,4 @@ public class feginController {
                 return "你好";
         }
 
-
-
-
 }
