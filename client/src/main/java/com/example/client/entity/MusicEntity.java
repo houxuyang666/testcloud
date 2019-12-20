@@ -4,9 +4,8 @@ package com.example.client.entity;
 public class MusicEntity {
 
     private int musicid;
-    private String musicname;
-    private String musictype;
-    private String musicurl;
+    private String musicname,musictype,musicurl;
+
 
 
     public String getMusicname() {
