@@ -33,4 +33,12 @@ public class MySQLTestController {
         return "hi, "+name+" i an come from"+port;
     }
 
+
+
+    @RequestMapping("/hi")
+    public String hi() {
+
+        return "hi";
+    }
+
 }

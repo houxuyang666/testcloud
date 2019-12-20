@@ -17,4 +17,9 @@ public class Feignserviceimpl  implements Feignservice {
     public String index() {
         return "sorry,页面离家出走了";
     }
+
+    @Override
+    public String test() {
+            return "sorry,页面离家出走了";
+    }
 }

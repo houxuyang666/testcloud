@@ -17,4 +17,8 @@ public interface Feignservice {
 
     @RequestMapping("/index")
     String index();
+
+
+    @RequestMapping("/test")
+    String test() ;
 }

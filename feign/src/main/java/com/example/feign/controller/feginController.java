@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("test")
 public class feginController {
 
         @Autowired
@@ -24,5 +23,14 @@ public class feginController {
         String index() {
                 return feignService.index();
         }
+
+
+        @RequestMapping("/hi")
+        String hi() {
+                return "你好";
+        }
+
+
+
 
 }
