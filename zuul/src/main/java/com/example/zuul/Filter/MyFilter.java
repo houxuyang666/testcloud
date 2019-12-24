@@ -51,9 +51,11 @@ public class MyFilter extends ZuulFilter {
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);
             try {
+                log.warn("拦截到非法请求");
                 //设置编码格式，否则中文乱码
                 ctx.getResponse().setContentType("text/html;charset=utf-8");
                 ctx.getResponse().getWriter().write("非法请求");
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
