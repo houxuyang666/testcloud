@@ -17,7 +17,7 @@ public class workTest {
     public void oneToMany() throws Exception {
         for (int i=0;i<10;i++){
             publisher.send(i);
-            //Thread.sleep(300);
+            Thread.sleep(300);
         }
     }
 

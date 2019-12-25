@@ -7,14 +7,13 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@RabbitListener(queues = "q_topic_messages") /*消费者需要监听 并声明监听的队列名称 以便获取消息*/
+@RabbitListener(queues = "topic_2") /*消费者需要监听 并声明监听的队列名称 以便获取消息*/
 @Slf4j
 public class TopicConsumer2 {
 
     @RabbitHandler
     public void process(String hello) {
-        System.out.println("Receiver2  : " + hello);
-        log.info("Tpoic2接受消息" + hello + "成功");
+        System.out.println("Receiver2  : " + hello+"   我监听的是topic_2");
     }
 
 }

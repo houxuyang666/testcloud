@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class FanoutRabbitConfig {
     /*订阅模式或广播模式  只要监听了该队列的所有消费者都可以收到信息*/
 
+    /*生产者发送消息后  发送到交换机， 交换机将信息发送给绑定该交换机的三个队列 ，监听到三个队列的消费者均可以接收到消息*/
+
     /*创建三个队列*/
     @Bean
     public Queue aMessage(){

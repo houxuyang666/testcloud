@@ -11,35 +11,39 @@ import org.springframework.context.annotation.Configuration;
 public class TopicRabbitConfig {
     /*Topic 主题模式*/
 
-    final  static  String message ="q_topic_message";
-    final  static  String messages ="q_topic_messages";
+    final  static  String message ="topic_1";
+    final  static  String messages ="topic_2";
+    final  static  String topicExchange ="mybootexchange";
     /*创建两个队列*/
 
 
     @Bean
-    public Queue queueMessage(){
-            return new Queue(TopicRabbitConfig.message,true);
+    public Queue queue1(){
+            return new Queue(message);
     }
 
     @Bean
     public Queue queueMessages(){
-        return new Queue(TopicRabbitConfig.messages,true);
+        return new Queue(TopicRabbitConfig.messages);
     }
 
     /*声明这是一个topic类型的交换机*/
     @Bean
     TopicExchange exchange(){
-        return new TopicExchange("mybootexchange");
+            return new TopicExchange(topicExchange);
     }
+
+    /*设置routing-key（路由键   通配符 #为任意单词  * 为一个单词 以.分割  去和生产者发送消息时的routingkey进行匹配 ）*/
 
     /*绑定Q到交换机 并制定routing-key*/
     @Bean
-    Binding bindingExchangeMessage(Queue queueMessage, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessage).to(exchange).with("topic.message");
+    Binding bindingExchange() {
+        return BindingBuilder.bind(queue1()).to(exchange()).with("topic.qqq");
     }
 
     @Bean
-    Binding bindingExchangeMessages(Queue queueMessages, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessages).to(exchange).with("topic.#");
+    Binding bindingExchangeMessages() {
+        return BindingBuilder.bind(queueMessages()).to(exchange()).with("topic.#");
     }
+
 }
