@@ -1,16 +1,15 @@
-package com.example.rabbitmq;
+package com.example.redis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages="com.example.redis")
 @EnableEurekaClient
-public class RabbitmqApplication {
+public class RedisApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RabbitmqApplication.class, args);
+        SpringApplication.run(RedisApplication.class, args);
     }
 
 }
