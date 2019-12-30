@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@Component  /*实例化到pojo容器中*/
+@Component  /*把普通pojo实例化到spring容器*/
 public class Feignserviceimpl  implements Feignservice {
 
     @Override

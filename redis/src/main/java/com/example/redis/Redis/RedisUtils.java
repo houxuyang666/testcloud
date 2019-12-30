@@ -36,8 +36,8 @@ public class RedisUtils{
      */
     private static final int RANDOM_CACHE_SECONDS = 60 * 3 * 1;
 
-    @Autowired
-    private  RedisTemplate redisTemplate;
+    private static RedisTemplate redisTemplate;
+
 
 
         /**
@@ -55,7 +55,7 @@ public class RedisUtils{
      * @return true or false . <br/>
      * @throws Exception
      */
-    public   boolean save(Object key, Object object) {
+    public static boolean save(Object key, Object object) {
         int timeout = DEFAULT_CACHE_SECONDS;
         if (object == null) {
             // 缓存null值较短时间，既防止null穿透，又防止新增信息不能及时刷新
@@ -77,7 +77,7 @@ public class RedisUtils{
      * @param seconds 过期时间（单位为秒）.<br/>
      * @return true or false .
      */
-    public   boolean save(Object key, Object object, int seconds) {
+    public static   boolean save(Object key, Object object, int seconds) {
         log.debug("保存对象到redis, key：【{}】, 【{}】 【{}】", key, object, seconds);
         try {
             redisTemplate.opsForValue().set(key, object, seconds, TimeUnit.SECONDS);
@@ -96,7 +96,7 @@ public class RedisUtils{
      * @return Object .<br/>
      * @throws Exception
      */
-    public  Object get(Object key) {
+    public static Object get(Object key) {
         return redisTemplate.opsForValue().get(key);
     }
 
@@ -107,7 +107,7 @@ public class RedisUtils{
      * @return
      * @throws Exception
      */
-    public  Boolean del(Object key) {
+    public static  Boolean del(Object key) {
         log.debug("从redis删除数据, {}", key);
         try {
             redisTemplate.delete(key);
@@ -124,7 +124,7 @@ public class RedisUtils{
      * @return
      * @throws Exception
      */
-    public  Boolean del(Object... keys) {
+    public static  Boolean del(Object... keys) {
         log.debug("从redis删除多个数据, {}", keys);
         try {
             redisTemplate.delete(keys);
@@ -139,7 +139,7 @@ public class RedisUtils{
      * @param seconds 超时时间（单位为秒）
      * @return
      */
-    public  Boolean expire(Object key, int seconds) {
+    public static  Boolean expire(Object key, int seconds) {
         log.debug("设置redis对象超时时间, {}, {}", key, seconds);
         return redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
     }
@@ -152,7 +152,7 @@ public class RedisUtils{
      * @param value
      * @return
      */
-    public  Boolean addHash(String key, Object field, Object value) {
+    public static  Boolean addHash(String key, Object field, Object value) {
         log.debug("添加一个内容到指定key的hash中, {}, {}, {}", key, field, value);
         try {
             redisTemplate.opsForHash().put(key, field, value);
@@ -169,7 +169,7 @@ public class RedisUtils{
      * @param field
      * @return
      */
-    public  Object getHash(Object key, Object field) {
+    public static  Object getHash(Object key, Object field) {
         log.debug("从指定hash中拿一个对象, {}, {}", key, field);
         return redisTemplate.opsForHash().get(key, field);
     }
@@ -181,7 +181,7 @@ public class RedisUtils{
      * @param field
      * @return
      */
-    public  Boolean delHash(Object key, Object field) {
+    public static  Boolean delHash(Object key, Object field) {
         log.debug("从hash中删除指定filed的值, {}, {}", key, field);
         try {
             redisTemplate.opsForHash().delete(key, field);
@@ -197,7 +197,7 @@ public class RedisUtils{
      * @param pattern
      * @return
      */
-    public  Set<byte[]> keys(String pattern) {
+    public static  Set<byte[]> keys(String pattern) {
         log.debug("拿到缓存中所有符合pattern的key, {}", pattern);
         return redisTemplate.keys(pattern);
     }
@@ -208,7 +208,7 @@ public class RedisUtils{
      * @param key
      * @return
      */
-    public  Map<byte[], byte[]> getAllHash(Object key) {
+    public static  Map<byte[], byte[]> getAllHash(Object key) {
         log.debug("获得hash中的所有key value, {}", key);
         return redisTemplate.opsForHash().entries(key);
     }
@@ -219,7 +219,7 @@ public class RedisUtils{
      * @param key
      * @return
      */
-    public  Boolean exists(Object key) {
+    public static  Boolean exists(Object key) {
         log.debug("判断一个key是否存在, {}", key);
         try {
             return redisTemplate.hasKey(key);
@@ -234,8 +234,8 @@ public class RedisUtils{
 /*    public static int getSize() {
         return JedisRedisUtils.getSize();
     }*/
-
-    public void setRedisTemplate(RedisTemplate redisTemplate) {
+@Autowired
+    public  void setRedisTemplate(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
         LockUtils.setRedisTemplate(redisTemplate);
     }
