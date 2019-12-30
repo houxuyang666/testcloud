@@ -21,9 +21,15 @@ public class MySQLTestController {
     @Autowired
     private RedisUtils redisUtils;
 
-
+    /**
+     * @author Hou.xy
+     * @Param: musicid
+     * @return java.lang.Object
+     * @create 2019/12/30
+     * @description 功能描述
+     */
     @GetMapping("/select")
-    public Object select(int musicid) throws Exception {
+    public Object select(int musicid,String aaa) throws Exception {
         if (redisUtils.exists("music")){
             log.info("Redis取出{}成功","music");
             return redisUtils.get("music");
@@ -31,6 +37,7 @@ public class MySQLTestController {
         MusicEntity music =mySQLTestService.select(musicid);
         int random =RandomUtils.nextInt(10)*10;
         redisUtils.save("music",music, random);
+        System.out.println(aaa);
         log.info("Redis存入{}成功，缓存时间为{}秒","music",random);
         return music;
     }
